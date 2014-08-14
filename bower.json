@@ -1,0 +1,10 @@
+{
+  "name": "kendo",
+  "private": true,
+  "dependencies": {
+    "jquery": "~1.11.0",
+    "angular-kendo": "~1.0.3",
+    "angular-gridster": "~0.9.15"
+  },
+  "devDependencies": {}
+}

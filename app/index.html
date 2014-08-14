@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>kendo</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+		<!-- build:css styles/vendor.css -->
+		<!-- bower:css -->
+		<!-- endbower -->
+		<!-- endbuild -->
+
+		<!-- build:css(.tmp) styles/main.css -->
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.css" />
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/css/jquery-ui.min.css" />
+		<link rel="stylesheet" href="../bower_components/angular-gridster/dist/angular-gridster.min.css" />
+		<link rel="stylesheet" href="styles/main.css">
+		<!-- endbuild -->
+
+	</head>
+	<body ng-app="KendoDemos" ng-controller="KendoDemosCtrl as K">
+		<!--[if lt IE 10]>
+			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<h1>{{K.title}}</h1>
+
+<div id="mychart"></div>
+<button id="mybutton">click</button>
+
+
+		<div gridster="gridsterOpts">
+			<ul>
+				<li gridster-item row="0" col="0" size-x="2" size-y="2">
+					<div kendo-chart
+						k-series-defaults="{ type: 'bar' }"
+						k-data-source="K.barData"
+						k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
+					></div>
+				</li>
+				<li gridster-item row="2" col="0" size-x="2" size-y="2">
+					<div kendo-chart
+						k-title="{ text: 'Solar' }"
+						k-series-defaults="{ type: 'pie' }"
+						k-data-source="K.data"
+						k-series="[{field: 'solar', name: 'Solar', categoryField: 'year'}]"
+						k-tooltip="{visible: true, format: 'N0', template: '#= category #'}"
+					></div>
+				</li>
+				<li gridster-item row="0" col="2" size-x="4" size-y="4">
+					<div kendo-chart
+						k-series-defaults="{ type: 'line' }"
+						k-data-source="K.data"
+						k-legend="{ position: 'bottom' }"
+						k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
+					></div>
+				</li>
+
+			</ul>
+		</div>
+
+
+		<!-- build:js scripts/vendor.js -->
+		<!-- bower:js -->
+		<script src="../bower_components/kendo-ui/dist/kendo.ui.core.min.js"></script>
+		<!-- endbower -->
+		<!-- endbuild -->
+
+
+		<!-- build:js({app,.tmp}) scripts/main.js -->
+		<script src="../bower_components/jquery/dist/jquery.js"></script>
+		<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+		<script src="../bower_components/angular/angular.js"></script>
+		<script src="../bower_components/javascript-detect-element-resize/jquery.resize.js"></script>
+		<script src="../bower_components/angular-gridster/src/angular-gridster.js"></script>
+		<!--script src="../bower_components/kendo-ui/js/kendo.ui.core.min.js"></script>
+		<script src="../bower_components/angular-kendo/build/angular-kendo.min.js"></script-->
+		<script src="http://cdn.kendostatic.com/2014.2.716/js/kendo.all.min.js"></script>
+		<script src="scripts/main.js"></script>
+		<!-- endbuild -->
+</body>
+</html>
