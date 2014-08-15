@@ -30,3 +30,41 @@ body {
 .k-sparkline svg {
 	height: 50px !important;
 }
+
+.angle-btn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	color: #AAA;
+	z-index: 100;
+}
+
+.angle-btn:hover {color: black;}
+
+.unwrapped {
+	padding: 40px;
+	left: 0px !important;
+	right: 0px !important;
+	width: 100% !important;
+	height: 700px !important;
+	z-index: 1000 !important;
+	transition: 1s !important;
+	box-shadow: 0px 0px 30px #000;
+	transform:  perspective(1000px) rotateY(360deg);
+	overflow: hidden;
+	text-align: left !important;
+
+}
+
+.unwrapped .unwrapped-content {
+	height: 95%;
+	margin-top: 20px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.unwrapped  .k-chart {
+height: auto !important;
+margin: 20px;
+}
