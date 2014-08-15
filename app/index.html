@@ -13,8 +13,8 @@
 		<!-- endbuild -->
 
 		<!-- build:css(.tmp) styles/main.css -->
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.css" />
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/css/jquery-ui.min.css" />
+		<link rel="stylesheet" href="../bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css" />
+		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
 		<link rel="stylesheet" href="../bower_components/angular-gridster/dist/angular-gridster.min.css" />
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
@@ -25,42 +25,109 @@
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
-		<h1>{{K.title}}</h1>
+		<div class="container">
+			<h1>{{K.title}}</h1>
 
-<div id="mychart"></div>
-<button id="mybutton">click</button>
-
-
-		<div gridster="gridsterOpts">
-			<ul>
-				<li gridster-item row="0" col="0" size-x="2" size-y="2">
-					<div kendo-chart
-						k-series-defaults="{ type: 'bar' }"
-						k-data-source="K.barData"
-						k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
-					></div>
-				</li>
-				<li gridster-item row="2" col="0" size-x="2" size-y="2">
-					<div kendo-chart
-						k-title="{ text: 'Solar' }"
-						k-series-defaults="{ type: 'pie' }"
-						k-data-source="K.data"
-						k-series="[{field: 'solar', name: 'Solar', categoryField: 'year'}]"
-						k-tooltip="{visible: true, format: 'N0', template: '#= category #'}"
-					></div>
-				</li>
-				<li gridster-item row="0" col="2" size-x="4" size-y="4">
-					<div kendo-chart
-						k-series-defaults="{ type: 'line' }"
-						k-data-source="K.data"
-						k-legend="{ position: 'bottom' }"
-						k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
-					></div>
-				</li>
-
-			</ul>
+			<div gridster="K.gridsterOpts" gridster-adjuster>
+				<ul>
+					<li gridster-item row="0" col="0" size-x="2" size-y="1">
+						<div kendo-chart
+							k-series-defaults="{ type: 'bar' }"
+							k-data-source="K.barData"
+							k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
+							k-options="K.chart1"
+							chart-size-auto-adjust
+						></div>
+					</li>
+					<li gridster-item row="1" col="0" size-x="2" size-y="2">
+						<div kendo-chart
+							k-title="{ text: 'Solar' }"
+							k-series-defaults="{ type: 'pie' }"
+							k-data-source="K.data"
+							k-series="[{field: 'solar', name: 'Solar', categoryField: 'year'}]"
+							k-tooltip="{visible: true, format: 'N0', template: '#= category #'}"
+							k-options="K.chart2"
+							chart-size-auto-adjust
+						></div>
+					</li>
+					<li gridster-item row="0" col="2" size-x="4" size-y="3">
+						<div kendo-chart
+							k-series-defaults="{ type: 'line' }"
+							k-data-source="K.data"
+							k-legend="{ position: 'bottom' }"
+							k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
+							k-options="K.chart3"
+							chart-size-auto-adjust
+						></div>
+					</li>
+					<li gridster-item row="3" col="0" size-x="1" size-y="1">
+						<h1 class="text-muted"><br />
+							53<small>%</small>
+							<div kendo-sparkline
+								k-data="K.dataSmall.c1"
+								k-tooltip="{visible: false}"
+								sparkline-size-auto-adjust
+							></div>
+						</h1>
+					</li>
+					<li gridster-item row="3" col="1" size-x="1" size-y="1">
+						<h1 class="text-muted"><br>
+							&euro;3499<small>K</small>
+							<div kendo-sparkline
+								k-data="K.dataSmall.c2"
+								k-series-defaults="{ type: 'area' }"
+								k-tooltip="{visible: false}"
+								sparkline-size-auto-adjust
+							></div>
+						</h1>
+					</li>
+					<li gridster-item row="3" col="2" size-x="1" size-y="1">
+						<h1 class="text-success"><br />
+							<span class="glyphicon glyphicon-arrow-up"></span>34.1
+							<div kendo-sparkline
+								k-data="K.dataSmall.c3"
+								k-series-defaults="{ type: 'column' }"
+								k-tooltip="{visible: false}"
+								sparkline-size-auto-adjust
+							></div>
+						</h1>
+					</li>
+					<li gridster-item row="3" col="3" size-x="1" size-y="1">
+						<h1 class="text-success"><br />
+							<span class="glyphicon glyphicon-envelope"></span> +2<small>%</small><br />
+							<div kendo-sparkline
+								k-series-defaults="{ type: 'pie' }"
+								k-data="[5,19]"
+								k-tooltip="{visible: false}"
+								sparkline-size-auto-adjust
+							></div>
+						</h1>
+					</li>
+					<li gridster-item row="3" col="4" size-x="1" size-y="1">
+						<h1 class="text-success"><br />
+							<span class="glyphicon glyphicon-briefcase"></span> +4.1<small>%</small><br />
+							<div kendo-sparkline
+								k-series-defaults="{ type: 'pie' }"
+								k-data="[50,19]"
+								k-tooltip="{visible: false}"
+								sparkline-size-auto-adjust
+							></div>
+						</h1>
+					</li>
+					<li gridster-item row="3" col="5" size-x="1" size-y="1">
+						<h1 class="text-muted"><br />
+							<span class="glyphicon glyphicon-book"></span> 432<br />
+							<div kendo-sparkline
+								k-series-defaults="{ type: 'pie' }"
+								k-data="[24,26,23]"
+								k-tooltip="{visible: false}"
+								sparkline-size-auto-adjust
+							></div>
+						</h1>
+					</li>
+				</ul>
+			</div>
 		</div>
-
 
 		<!-- build:js scripts/vendor.js -->
 		<!-- bower:js -->
@@ -72,6 +139,7 @@
 		<!-- build:js({app,.tmp}) scripts/main.js -->
 		<script src="../bower_components/jquery/dist/jquery.js"></script>
 		<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+		<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="../bower_components/angular/angular.js"></script>
 		<script src="../bower_components/javascript-detect-element-resize/jquery.resize.js"></script>
 		<script src="../bower_components/angular-gridster/src/angular-gridster.js"></script>

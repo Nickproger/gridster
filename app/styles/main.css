@@ -1,16 +1,32 @@
 body {
-    background-color: #023;
+	background-color: #EEE;
 }
 
 .gridster .gridster-item {
-    position: absolute !important;
-    background-color: #FFE;
-    box-shadow: 0 0 5px rgb(0, 0, 0);
+	position: absolute !important;
+	background-color: #FFF;
+	box-shadow: 0 0 5px rgb(5, 5, 5);
 }
 
+.resizingMode {
+	border: 2px dashed #000;
+	opacity: 0.3;
+}
+.resizingMode * {
+	display: none;
+}
 
-#mychart {
-    width: 200px;
-    height: 200px;
-    border: 5px solid red;
+.k-chart {
+	height: 100% !important;
+	width: 100% !important;
+}
+
+.k-sparkline {
+	width: 100% !important;
+	line-height: 50px !important;
+	height: 50px !important;
+	padding: 0;
+}
+.k-sparkline svg {
+	height: 50px !important;
 }
