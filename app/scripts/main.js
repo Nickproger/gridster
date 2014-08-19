@@ -1,55 +1,87 @@
+(function () {
+'use strict';
+
 angular
+.module("ChartDashboard", ['kendo.directives', 'gridster'])
 
-.module("KendoDemos", [ 'kendo.directives', 'gridster' ])
-
-.controller("KendoDemosCtrl", ['$scope', '$http', function ($scope, $http) {
-
-	var that = this;
-
-	// Fake data
-
-	this.data = new kendo.data.DataSource({transport: {read: {url: "/data/spain-electricity.json"}}});
-
-	this.barData = [{"solar": 2578, "hydro": 26112, "wind": 32203, "nuclear": 58973 }];
-
-	this.dataSmall = {
-		c1: [936, 968, 1025, 999, 998, 1014, 1017, 1010, 1010, 1007, 1004, 988, 990, 988, 987, 995, 946, 954, 991, 984],
-		c2: [16, 17, 18, 19, 20, 21, 21, 22, 23, 22, 20, 18, 17, 17, 16, 16, 17, 18, 19, 20],
-		c3: [71, 70, 69, 68, 65, 60, 55, 55, 50, 52, 73, 72, 72, 71, 68, 63, 57, 58, 53, 55]
-	}
-
-	/* Temp code: !!! Move to the separate directive !!!!!!!!!!!!! */
-	this.gridsterOpts = {
-		resizable: {
-			start: function(event, uiWidget, $element) {
-				if (!$element.innerChart) {
-					$element.innerChart = $element.find("[kendo-chart]").data("kendoChart");
-				}
-				$element.addClass("resizingMode");
-			},
-			stop: function(event, uiWidget, $element) {
-				// !!! try to find corresponding event, which fires after resizing, adjusting to grid and getting new sizes for tile
-				setTimeout(function () {
-					$element.removeClass("resizingMode");
-					$element.innerChart.resize();
-				}, 300);
-			}
-		}
-	};
-
-}])
-
-.directive("sizeAutoAdjust", [function () {
+.directive('m42ChartDashboard', [function () {
 	return {
-		restrict: 'A',
-		link: function(scope, element, attrs) {
-			scope.$on("kendoWidgetCreated", function(event, widget) {
-				if (widget.element[0] == element[0]) {
-					setTimeout(function () {
-						widget.resize();
-					}, 0);
+		restrict: 'AE',
+		templateUrl: 'm42-chart-dashboard.html',
+		transclude: true,
+		scope: {
+			options: '=m42ChartDashboard'
+		},
+		controller: function () {
+			this.gridsterOpts = {
+				margins: [20, 20],
+
+				// Handle charts auto-resizing when Gridster's items are resizing
+				resizable: {
+					start: function(event, uiWidget, element) {
+						if (!element.innerChart) {
+							element.innerChart = element.find('.k-chart').data('kendoChart');
+						}
+						element.addClass('resizingMode');
+					},
+					stop: function(event, uiWidget, element) {
+						setTimeout(function () {
+							element.removeClass('resizingMode');
+							element.innerChart.resize();
+						}, 300);
+					}
 				}
+			};
+		},
+		controllerAs: 'MCDCtrl',
+		link: function(scope, elem, attrs) {
+
+			// Handle charts auto-resizing when window/Grister is resizing
+			scope.$on('gridster-resized', function() {
+				elem.find('.k-chart').each(function () {
+					$(this).data('kendoChart').resize();
+				});
+			});
+
+			// Adjust size of charts, when they were loaded
+			scope.$on('kendoWidgetCreated', function(event, widget) {
+				setTimeout(function () {
+					widget.resize();
+				}, 0);
 			});
 		}
 	}
+}])
+
+.controller("DashboardCtrl", ['$scope', '$http', function ($scope, $http) {
+
+	this.chartDataSource = new kendo.data.DataSource({transport: {read: {url: "/data/spain-electricity.json"}}});
+
+	this.dashboardOptions = [{
+		position: { sizeX: 2, sizeY: 1, row: 0, col: 0 },
+		chart: {
+			seriesDefaults: {type: 'bar'},
+			dataSource: [{"solar": 2578, "hydro": 26112, "wind": 32203, "nuclear": 58973 }],
+			series: [{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]
+		}
+	}, {
+		position: { sizeX: 2, sizeY: 2, row: 1, col: 0 },
+		chart: {
+			title: { text: 'Solar' },
+			seriesDefaults: {type: 'pie'},
+			dataSource: this.chartDataSource,
+			series: [{field: 'solar', name: 'Solar', categoryField: 'year'}]
+		}
+	}, {
+		position: { sizeX:4, sizeY: 3, row: 0, col: 2 },
+		chart: {
+			seriesDefaults: {type: 'line'},
+			dataSource: this.chartDataSource,
+			series: [{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}],
+			legend: { position: 'bottom' }
+		}
+	}];
+
 }]);
+
+}());

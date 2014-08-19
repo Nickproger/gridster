@@ -20,125 +20,26 @@
 		<!-- endbuild -->
 
 	</head>
-	<body ng-app="KendoDemos" ng-controller="KendoDemosCtrl as K">
+	<body>
 		<!--[if lt IE 10]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
 
+		<div class="container" ng-app="ChartDashboard" ng-controller="DashboardCtrl as DC">
+			<h1>Kendo Dashboard 222</h1>
 
-		<div class="container">
-			<h1>Kendo Dashboard</h1>
+			<script type='text/ng-template' id="m42-chart-dashboard.html">
+				<div gridster="MCDCtrl.gridsterOpts">
+					<ul>
+						<li gridster-item="item.position" ng-repeat="item in options">
+							<div kendo-chart k-options="item.chart"></div>
+						</li>
+					</ul>
+				</div>
+			</script>
+			<div m42-chart-dashboard="DC.dashboardOptions"></div>
 
-			<div gridster="K.gridsterOpts" gridster-adjuster>
-				<ul>
-					<li gridster-item row="0" col="0" size-x="2" size-y="1" ng-class="{unwrapped: K.unwrapped.c1}">
-						<span class="glyphicon glyphicon-fullscreen angle-btn" ng-hide="K.unwrapped.c1" ng-click="K.unwrapped.c1 = true"></span>					
-						<span class="glyphicon glyphicon-remove angle-btn"  ng-show="K.unwrapped.c1" ng-click="K.unwrapped.c1 = false"></span>
-						<h1 ng-show="K.unwrapped.c1">Consectetur adipiscing elit.</h1>
-						<div kendo-chart
-							k-series-defaults="{ type: 'bar' }"
-							k-data-source="K.barData"
-							k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
-							size-auto-adjust
-						></div>
-						<p ng-show="K.unwrapped.c1">Sed sed ante sem. Pellentesque mattis augue in risus dignissim tempor. Curabitur tristique risus nulla, nec vestibulum mauris ultrices pulvinar. Nulla viverra scelerisque orci, sed euismod neque imperdiet vitae. Sed non imperdiet eros, quis vulputate nunc. Maecenas quis justo eget elit posuere vehicula. Duis et pulvinar mi, non facilisis orci. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur vel nibh feugiat, sollicitudin sem nec, vehicula dolor. Praesent vulputate lorem ac tellus cursus accumsan.</p>
-					</li>
-					<li gridster-item row="1" col="0" size-x="2" size-y="2" ng-class="{unwrapped: K.unwrapped.c2}">
-						<span class="glyphicon glyphicon-fullscreen angle-btn" ng-hide="K.unwrapped.c2" ng-click="K.unwrapped.c2 = true"></span>					
-						<span class="glyphicon glyphicon-remove angle-btn"  ng-show="K.unwrapped.c2" ng-click="K.unwrapped.c2 = false"></span>
-						<h1  ng-show="K.unwrapped.c2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-						<div kendo-chart
-							k-title="{ text: 'Solar' }"
-							k-series-defaults="{ type: 'pie' }"
-							k-data-source="K.data"
-							k-series="[{field: 'solar', name: 'Solar', categoryField: 'year'}]"
-							k-tooltip="{visible: true, format: 'N0', template: '#= category #'}"
-							size-auto-adjust
-						></div>
-						<div ng-show="K.unwrapped.c2">
-							<p>Suspendisse in metus justo. Suspendisse non tellus quis odio sollicitudin vehicula in ut mauris. Etiam auctor arcu ligula, vitae iaculis lorem hendrerit ac. Aenean consectetur blandit dignissim. Mauris pharetra vehicula ante, id dignissim lorem varius eu. Phasellus a arcu eu dui congue iaculis. Donec nec elementum dolor, sit amet pellentesque turpis. Aenean faucibus congue dui ut volutpat. Nulla elementum vel ipsum eu hendrerit. Vestibulum iaculis mi sed nisl rhoncus, sed varius lorem iaculis. Ut vitae laoreet arcu.</p>
-
-							<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean nec lorem odio. Aliquam erat volutpat. Donec et tortor lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquam blandit velit, a eleifend metus molestie in. Sed molestie accumsan vestibulum. Duis tristique libero nec velit luctus, vel bibendum nunc suscipit. Duis rhoncus rutrum massa, in imperdiet tellus fermentum id. Nullam eu purus et est ornare egestas. In posuere feugiat rhoncus. Proin pretium turpis eget nibh suscipit posuere.</p>
-						</div>
-
-					</li>
-					<li gridster-item row="0" col="2" size-x="4" size-y="3" ng-class="{unwrapped: K.unwrapped.c3}">
-						<div kendo-chart
-							k-series-defaults="{ type: 'line' }"
-							k-data-source="K.data"
-							k-legend="{ position: 'bottom' }"
-							k-series="[{field: 'nuclear', name: 'Nuclear'}, {field: 'hydro', name: 'Hydro'}, {field: 'wind', name: 'Wind'}, {field: 'solar', name: 'Solar'}]"
-							size-auto-adjust
-						></div>
-					</li>
-					<li gridster-item row="3" col="0" size-x="1" size-y="1">
-						<h1 class="text-muted"><br />
-							53<small>%</small>
-							<div kendo-sparkline
-								k-data="K.dataSmall.c1"
-								k-tooltip="{visible: false}"
-								size-auto-adjust
-							></div>
-						</h1>
-					</li>
-					<li gridster-item row="3" col="1" size-x="1" size-y="1">
-						<h1 class="text-muted"><br>
-							&euro;3499<small>K</small>
-							<div kendo-sparkline
-								k-data="K.dataSmall.c2"
-								k-series-defaults="{ type: 'area' }"
-								k-tooltip="{visible: false}"
-								size-auto-adjust
-							></div>
-						</h1>
-					</li>
-					<li gridster-item row="3" col="2" size-x="1" size-y="1">
-						<h1 class="text-success"><br />
-							<span class="glyphicon glyphicon-arrow-up"></span>34.1
-							<div kendo-sparkline
-								k-data="K.dataSmall.c3"
-								k-series-defaults="{ type: 'column' }"
-								k-tooltip="{visible: false}"
-								size-auto-adjust
-							></div>
-						</h1>
-					</li>
-					<li gridster-item row="3" col="3" size-x="1" size-y="1">
-						<h1 class="text-success"><br />
-							<span class="glyphicon glyphicon-envelope"></span> +2<small>%</small><br />
-							<div kendo-sparkline
-								k-series-defaults="{ type: 'pie' }"
-								k-data="[23,11]"
-								k-tooltip="{visible: false}"
-								size-auto-adjust
-							></div>
-						</h1>
-					</li>
-					<li gridster-item row="3" col="4" size-x="1" size-y="1">
-						<h1 class="text-success"><br />
-							<span class="glyphicon glyphicon-briefcase"></span> +4.1<small>%</small><br />
-							<div kendo-sparkline
-								k-series-defaults="{ type: 'pie' }"
-								k-data="[50,19]"
-								k-tooltip="{visible: false}"
-								size-auto-adjust
-							></div>
-						</h1>
-					</li>
-					<li gridster-item row="3" col="5" size-x="1" size-y="1">
-						<h1 class="text-muted"><br />
-							<span class="glyphicon glyphicon-book"></span> 432<br />
-							<div kendo-sparkline
-								k-series-defaults="{ type: 'pie' }"
-								k-data="[24,26,23]"
-								k-tooltip="{visible: false}"
-								size-auto-adjust
-							></div>
-						</h1>
-					</li>
-				</ul>
-			</div>
 		</div>
 
 		<!-- build:js scripts/vendor.js -->
