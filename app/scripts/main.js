@@ -47,7 +47,7 @@ angular
 				if (widget.element[0] == element[0]) {
 					setTimeout(function () {
 						widget.resize();
-					});
+					}, 0);
 				}
 			});
 		}
